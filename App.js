@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 
-import HomeScreen from './Components/HomeScreen/HomeScreen.js'
-import LoginScreen from './Components/LoginScreen/LoginScreen.js'
-import RegisterScreen from './Components/LoginScreen/RegisterScreen.js'
+import HomeScreen from './app/Components/HomeScreen/HomeScreen.js'
+import LoginScreen from './app/Components/LoginScreen/LoginScreen.js'
+import RegisterScreen from './app/Components/LoginScreen/RegisterScreen.js'
 
 export default class App extends Component<Props> {
   render() {
