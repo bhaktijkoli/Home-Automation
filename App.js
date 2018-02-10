@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Image } from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Container, Header, Body, Content } from 'native-base';
 
@@ -17,7 +18,8 @@ export default class App extends Component<Props> {
 const CustomDrawerContentComponent = (props) => (
   <Container>
     <Header style={{height:200}}>
-      <Body>
+      <Body style={{alignItems:'center',paddingRight:10}}>
+        <Image style={{height:150, width:150}} source={require('./assets/logo.png')} />
       </Body>
     </Header>
     <Content>
