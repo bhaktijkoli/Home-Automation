@@ -3,14 +3,20 @@ import { Image } from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Container, Header, Body, Content } from 'native-base';
 
-import HomeScreen from './app/Components/HomeScreen/HomeScreen.js'
-import LoginScreen from './app/Components/LoginScreen/LoginScreen.js'
-import RegisterScreen from './app/Components/LoginScreen/RegisterScreen.js'
+import HomeScreen from './app/components/HomeScreen/HomeScreen.js'
+import LoginScreen from './app/components/LoginScreen/LoginScreen.js'
+import RegisterScreen from './app/components/LoginScreen/RegisterScreen.js'
+
+
+import { Provider } from "react-redux"
+import store from "./app/store";
 
 export default class App extends Component<Props> {
   render() {
     return (
-      <AppNavigator/>
+      <Provider store={store}>
+        <AppNavigator/>
+      </Provider>
     );
   }
 }
