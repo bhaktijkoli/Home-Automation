@@ -4,7 +4,7 @@ import { Container, Header, Content, Form, Item, Input, Label, Button } from 'na
 
 export default class LoginScreen extends Component {
   static navigationOptions = {
-    header: null,
+    drawerLockMode: 'locked-closed'
   }
   render() {
     return (
