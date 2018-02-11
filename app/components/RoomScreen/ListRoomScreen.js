@@ -15,7 +15,7 @@ class RoomScreen extends Component {
     var no = 0;
     var list = this.props.data.map((d) => {
       return (
-        <ListItem icon>
+        <ListItem icon key={no++}>
           <Left>
             <Icon style={{width:28}} name={getRoomIcon(d.type)} />
           </Left>

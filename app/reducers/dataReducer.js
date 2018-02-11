@@ -9,6 +9,10 @@ var initialState = [
   }
 ]
 export default function reducer(state=initialState, action) {
-
+  switch (action.type) {
+    case "NEW_ROOM": {
+      return {...state, user: state.push(action.payload)}
+    }
+  }
   return state
 }

@@ -24,3 +24,7 @@ export function getRoomIcon(type) {
     return "bed"
   }
 }
+export function newRoom(name, type) {
+  var data =   { name: name, type: type };
+  return { type: 'NEW_ROOM', payload: data };
+}
