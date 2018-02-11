@@ -7,6 +7,9 @@ import platform from './native-base-theme/variables/platform';
 
 import HomeScreen from './app/components/HomeScreen/HomeScreen.js'
 import RoomScreen from './app/components/RoomScreen/RoomScreen.js'
+import DeviceScreen from './app/components/DeviceScreen/DeviceScreen.js'
+import ControllerScreen from './app/components/ControllerScreen/ControllerScreen.js'
+import SettingScreen from './app/components/SettingScreen/SettingScreen.js'
 
 import LoginScreen from './app/components/LoginScreen/LoginScreen.js'
 import RegisterScreen from './app/components/LoginScreen/RegisterScreen.js'
@@ -46,12 +49,15 @@ const CustomDrawerContentComponent = (props) => (
 const AppNavigator = DrawerNavigator(
   {
     HomeScreen: { screen: HomeScreen },
+    DeviceScreen: { screen: DeviceScreen },
     RoomScreen: { screen: RoomScreen },
+    ControllerScreen: { screen: ControllerScreen },
+    SettingScreen: { screen: SettingScreen },
     LoginScreen: { screen: LoginScreen },
     RegisterScreen: { screen: RegisterScreen },
   },
   {
-    initialRouteName: 'RoomScreen',
+    initialRouteName: 'LoginScreen',
     drawerPosition: 'left',
     contentComponent: CustomDrawerContentComponent,
     drawerOpenRoute: 'DrawerOpen',

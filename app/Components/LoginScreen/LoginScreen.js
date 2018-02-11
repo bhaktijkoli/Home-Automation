@@ -6,6 +6,9 @@ export default class LoginScreen extends Component {
   static navigationOptions = {
     drawerLockMode: 'locked-closed'
   }
+  onSubmit() {
+    this.props.navigation.navigate('HomeScreen');
+  }
   render() {
     return (
       <KeyboardAvoidingView style={styles.container}>
@@ -21,7 +24,7 @@ export default class LoginScreen extends Component {
               <Label>Password</Label>
               <Input keyboardType="visible-password" />
             </Item>
-            <Button primary block style={styles.button}><Text> Login </Text></Button>
+            <Button primary block style={styles.button} onPress={this.onSubmit.bind(this)}><Text> Login </Text></Button>
             <Button transparent block style={styles.button}><Text>Forgot password ?</Text></Button>
             <Button transparent block  style={styles.button} onPress={e => this.props.navigation.navigate('RegisterScreen')}><Text>No account yet? Create one</Text></Button>
           </Form>

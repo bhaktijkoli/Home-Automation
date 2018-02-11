@@ -1,12 +1,16 @@
 var initialState = [
   {
-    name: 'Room 1',
+    name: 'Hall 1',
     type: 0,
   },
   {
-    name: 'Room 2',
+    name: 'Bedroom 1',
     type: 1,
-  }
+  },
+  {
+    name: 'Kitchen',
+    type: 2,
+  },
 ]
 export default function reducer(state=initialState, action) {
   switch (action.type) {
