@@ -5,6 +5,7 @@ import { Icon, Button, Container, Header, Body, Title, Content, Left,  Tab, Tabs
 
 import HeaderEx from './../HeaderEx/HeaderEx';
 
+import {setNavigation} from './../../actions/authActions';
 import {getRoomIcon} from './../../actions/dataActions';
 
 class HomeScreen extends Component {
@@ -14,11 +15,15 @@ class HomeScreen extends Component {
       <Icon name="home"/>
     ),
   }
+  constructor(props) {
+    super(props)
+    props.dispatch(setNavigation(props.navigation));
+  }
   render() {
     if(this.props.data.length == 0) {
       return (
         <Container style={styles.container}>
-          <HeaderEx navigation={this.props.navigation} title="Home"/>
+          <HeaderEx navigation={this.props.auth.navigation} title="Home"/>
           <View style={styles.view}>
             <Text style={{marginLeft:100,marginRight:100,textAlign:'center'}}>You dont have any room created, Create one from here.</Text>
           </View>

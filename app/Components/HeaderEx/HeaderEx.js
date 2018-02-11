@@ -7,7 +7,7 @@ export default class HeaderEx extends Component {
       <Header hasTabs>
         <Left>
           <Button transparent>
-            <Icon name="bars" style={{ }} onPress={() => this.props.navigation.navigate('DrawerOpen')} />
+            <Icon name="arrow-left" onPress={() => this.props.navigation.navigate('DrawerOpen')} />
           </Button>
         </Left>
         <Body>

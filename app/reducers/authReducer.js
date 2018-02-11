@@ -1,7 +1,8 @@
 var initialState = {
   check: 0,
   user: [],
-  loading: true
+  loading: true,
+  navigation: null,
 }
 export default function reducer(state=initialState, action) {
 
@@ -11,6 +12,9 @@ export default function reducer(state=initialState, action) {
     }
     case "LOADED": {
       return {...state, loading: false}
+    }
+    case "SET_NAVIGATION": {
+      return {...state, navigation: action.payload}
     }
   }
 
