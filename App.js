@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
-import { Container, Header, Body, Content } from 'native-base';
+import { Container, Header, Body, Content, StyleProvider } from 'native-base';
+import getTheme from './native-base-theme/components';
+import platform from './native-base-theme/variables/platform';
 
 import HomeScreen from './app/components/HomeScreen/HomeScreen.js'
 import LoginScreen from './app/components/LoginScreen/LoginScreen.js'
@@ -15,7 +17,9 @@ export default class App extends Component<Props> {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigator/>
+        <StyleProvider style={getTheme(platform)}>
+          <AppNavigator/>
+        </StyleProvider>
       </Provider>
     );
   }
