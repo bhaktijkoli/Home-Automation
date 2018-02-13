@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
-import { Container, Header, Body, Content, StyleProvider } from 'native-base';
+import { Root, Container, Header, Body, Content, StyleProvider } from 'native-base';
 import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 
@@ -21,11 +21,13 @@ import store from "./app/store";
 export default class App extends Component<Props> {
   render() {
     return (
-      <Provider store={store}>
-        <StyleProvider style={getTheme(platform)}>
-          <AppNavigator/>
-        </StyleProvider>
-      </Provider>
+      <Root>
+        <Provider store={store}>
+          <StyleProvider style={getTheme(platform)}>
+            <AppNavigator/>
+          </StyleProvider>
+        </Provider>
+      </Root>
     );
   }
 }

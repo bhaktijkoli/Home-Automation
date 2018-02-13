@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import { Container, Header, Body, Title, Content, Form, Item, Input, Label, Button } from 'native-base';
+import { Container, Header, Body, Title, Content, Form, Item, Input, Label, Button, Toast} from 'native-base';
 
 import route from './../../utils/route';
 import {makePost} from './../../utils/request';
-
-import axios from 'axios';
 
 export default class RegisterScreen extends Component {
   static navigationOptions = {
@@ -65,31 +63,19 @@ export default class RegisterScreen extends Component {
     )
   }
   onSubmit() {
+    var navigation = this.props.navigation;
     var state = this.state;
     var data = {
-      firstname: state.firstname,
-      lastname: state.lastname,
-      email: state.email,
+      firstName: state.firstname,
+      lastName: state.lastname,
       phone: state.phone,
+      username: state.email,
       password: state.password,
     }
-    console.log(data);
-    // axios.get('https://www.google.co.in').then((response)=>{
-    //   console.log(response);
-    // })
-    // .catch((error)=>{
-    //   console.log(error);
-    // })
-    axios.post('http://localhost:3000/register', data).then((response)=>{
-      console.log(response.data);
-    })
-    .catch((error)=>{
-      alert(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-
-    })
+    makePost(route('/register'), data).then(res=>{
+      Toast.show({text: 'Registration Successfull!', position: 'bottom', buttonText: 'Ok'})
+      navigation.navigate("LoginScreen");
+    });
   }
 }
 
