@@ -2,14 +2,33 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
 
+import route from './../../utils/route';
+import {makePost} from './../../utils/request';
+
 export default class LoginScreen extends Component {
   static navigationOptions = {
     drawerLockMode: 'locked-closed'
   }
+  constructor(props) {
+    super(props);
+    this.state ={
+      email:'',
+      password:'',
+    }
+  }
   onSubmit() {
-    this.props.navigation.navigate('HomeScreen');
+    var state = this.state;
+    var data = {
+      username: state.email,
+      password: state.password,
+    }
+    makePost(route('/login'), data).then(res => {
+      console.log(res);
+      this.props.navigation.navigate('HomeScreen');
+    })
   }
   render() {
+    var state = this.state;
     return (
       <KeyboardAvoidingView style={styles.container}>
         <Content style={{flex:2}}>
@@ -17,12 +36,12 @@ export default class LoginScreen extends Component {
         <Content style={{flex:1}}>
           <Form>
             <Item floatingLabel>
-              <Label>Phone</Label>
-              <Input />
+              <Label>Email</Label>
+              <Input value={state.email} onChangeText={value=>this.setState({'email':value})}/>
             </Item>
             <Item floatingLabel last>
               <Label>Password</Label>
-              <Input keyboardType="visible-password" />
+              <Input keyboardType="visible-password" value={state.password} onChangeText={value=>this.setState({'password':value})}/>
             </Item>
             <Button primary block style={styles.button} onPress={this.onSubmit.bind(this)}><Text> Login </Text></Button>
             <Button transparent block style={styles.button}><Text>Forgot password ?</Text></Button>
