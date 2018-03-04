@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Toast } from 'native-base';
 
 import route from './../../utils/route';
 import {makePost} from './../../utils/request';
@@ -22,15 +22,20 @@ export default class LoginScreen extends Component {
       username: state.email,
       password: state.password,
     }
-    makePost(route('/login'), data).then(res => {
-      console.log(res);
-      this.props.navigation.navigate('HomeScreen');
+    makePost(route('/users/login'), data).then(res => {
+      if(res.status==200) {
+        console.log(res)
+        this.props.navigation.navigate('HomeScreen');
+      } else {
+    Toast.show({text: 'Invalid email or password.', position: 'bottom', buttonText: 'Ok'})
+      }
+
     })
   }
   render() {
     var state = this.state;
     return (
-      <KeyboardAvoidingView style={styles.container}>
+      <Container style={styles.container}>
         <Content style={{flex:2}}>
         </Content>
         <Content style={{flex:1}}>
@@ -48,7 +53,7 @@ export default class LoginScreen extends Component {
             <Button transparent block  style={styles.button} onPress={e => this.props.navigation.navigate('RegisterScreen')}><Text>No account yet? Create one</Text></Button>
           </Form>
         </Content>
-      </KeyboardAvoidingView>
+      </Container>
     )
   }
 }

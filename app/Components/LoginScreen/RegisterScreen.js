@@ -70,11 +70,20 @@ export default class RegisterScreen extends Component {
       lastName: state.lastname,
       phone: state.phone,
       username: state.email,
+      email: state.email,
       password: state.password,
+      password_confirm: state.confirm,
     }
-    makePost(route('/register'), data).then(res=>{
-      Toast.show({text: 'Registration Successfull!', position: 'bottom', buttonText: 'Ok'})
-      navigation.navigate("LoginScreen");
+    console.log("Register request send")
+    makePost(route('/users/register'), data).then(res=>{
+      var data = JSON.parse(res._bodyInit);
+      if(data.error_msg) {
+        Toast.show({text: data.errors[0].msg, position: 'bottom', buttonText: 'Ok'})
+      } else {
+        Toast.show({text: 'Registration Successfull!', position: 'bottom', buttonText: 'Ok'})
+        navigation.navigate("LoginScreen");
+      }
+    }).catch(res=>{
     });
   }
 }
