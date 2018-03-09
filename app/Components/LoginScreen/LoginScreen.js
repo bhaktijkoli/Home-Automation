@@ -19,18 +19,22 @@ export default class LoginScreen extends Component {
   onSubmit() {
     var state = this.state;
     var data = {
-      username: state.email,
+      email: state.email,
       password: state.password,
     }
-    makePost(route('/users/login'), data).then(res => {
-      if(res.status==200) {
-        console.log(res)
-        this.props.navigation.navigate('HomeScreen');
-      } else {
-    Toast.show({text: 'Invalid email or password.', position: 'bottom', buttonText: 'Ok'})
+    makePost(route('/api/user/login'), data).then(res => {
+      console.log(res);
+      var data = res.data;
+      if(data.success) {
+        if(data.homes.length>0) {
+          this.props.navigation.navigate('HomeScreen');
+        }else {
+          alert("You need to create home");
+        }
+      }else {
+        Toast.show({text: 'Invalid email or password.', position: 'bottom', buttonText: 'Ok'})
       }
-
-    })
+    }).catch(res=>console.log(res))
   }
   render() {
     var state = this.state;

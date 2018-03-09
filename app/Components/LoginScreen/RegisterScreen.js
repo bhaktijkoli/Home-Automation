@@ -12,9 +12,7 @@ export default class RegisterScreen extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      firstname:'',
-      lastname:'',
-      phone:"",
+      name:'',
       email:'',
       password:'',
       confirm:'',
@@ -32,20 +30,12 @@ export default class RegisterScreen extends Component {
         <Content style={{flex:1}}>
           <Form>
             <Item floatingLabel>
-              <Label>First Name</Label>
-              <Input value={state.firstname} onChangeText={value=>this.setState({'firstname':value})}/>
-            </Item>
-            <Item floatingLabel>
-              <Label>Last Name</Label>
-              <Input value={state.lastname} onChangeText={value=>this.setState({'lastname':value})}/>
+              <Label>Name</Label>
+              <Input value={state.name} onChangeText={value=>this.setState({'name':value})}/>
             </Item>
             <Item floatingLabel>
               <Label>Email:</Label>
               <Input value={state.email} onChangeText={value=>this.setState({'email':value})}/>
-            </Item>
-            <Item floatingLabel>
-              <Label>Phone:</Label>
-              <Input value={state.phone} onChangeText={value=>this.setState({'phone':value})}/>
             </Item>
             <Item floatingLabel last>
               <Label>Password</Label>
@@ -66,24 +56,22 @@ export default class RegisterScreen extends Component {
     var navigation = this.props.navigation;
     var state = this.state;
     var data = {
-      firstName: state.firstname,
-      lastName: state.lastname,
-      phone: state.phone,
-      username: state.email,
+      name: state.name,
       email: state.email,
       password: state.password,
       password_confirm: state.confirm,
     }
     console.log("Register request send")
-    makePost(route('/users/register'), data).then(res=>{
-      var data = JSON.parse(res._bodyInit);
-      if(data.error_msg) {
-        Toast.show({text: data.errors[0].msg, position: 'bottom', buttonText: 'Ok'})
-      } else {
-        Toast.show({text: 'Registration Successfull!', position: 'bottom', buttonText: 'Ok'})
+    makePost(route('/api/user/register'), data).then(res=>{
+      var data = res.data;
+      if(data.success) {
+        Toast.show({text: 'Registration Successfull!', position: 'bottom', buttonText: 'Ok'});
         navigation.navigate("LoginScreen");
+      }else {
+        Toast.show({text: data.messages[0].msg, position: 'bottom', buttonText: 'Ok'})
       }
     }).catch(res=>{
+      alert("An error occured while connecting to the server.")
     });
   }
 }
