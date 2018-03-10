@@ -4,7 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import { View, Text, StyleSheet } from 'react-native';
 import { Icon } from 'native-base';
 
-import {setNavigation} from './../../actions/authActions';
+import Auth from './../../actions/authActions';
 
 import ListRoomScreen from './ListRoomScreen'
 import NewRoomScreen from './NewRoomScreen'
@@ -18,7 +18,7 @@ class RoomScreen extends Component {
   }
   constructor(props) {
     super(props)
-    props.dispatch(setNavigation(props.navigation));
+    props.dispatch(Auth.setNavigation(props.navigation));
   }
   render() {
     return (
@@ -35,7 +35,6 @@ const App = StackNavigator({
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    data: state.data,
   };
 }
 export default connect(mapStateToProps)(RoomScreen);

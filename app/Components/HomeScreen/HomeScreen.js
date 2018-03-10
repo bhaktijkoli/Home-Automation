@@ -5,8 +5,8 @@ import { Icon, Button, Container, Header, Body, Title, Content, Left,  Tab, Tabs
 
 import HeaderEx from './../HeaderEx/HeaderEx';
 
-import {setNavigation} from './../../actions/authActions';
-import {getRoomIcon} from './../../actions/dataActions';
+import Auth from './../../actions/authActions';
+import Data from './../../actions/dataActions';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -17,10 +17,11 @@ class HomeScreen extends Component {
   }
   constructor(props) {
     super(props)
-    props.dispatch(setNavigation(props.navigation));
+    props.dispatch(Auth.setNavigation(props.navigation));
+    console.log(this.props);
   }
   render() {
-    if(this.props.data.length == 0) {
+    if(this.props.data.rooms.length == 0) {
       return (
         <Container style={styles.container}>
           <HeaderEx navigation={this.props.auth.navigation} title="Home"/>
@@ -30,12 +31,10 @@ class HomeScreen extends Component {
         </Container>
       );
     }
-
-
     var no = 0;
-    var tabs = this.props.data.map((d) => {
+    var tabs = this.props.data.rooms.map((d) => {
       return (
-        <Tab key={no++} heading={ <TabHeading><Icon name={getRoomIcon(d.type)}/></TabHeading>}></Tab>
+        <Tab key={no++} heading={ <TabHeading><Icon name={Data.getRoomIcon(d.type)}/></TabHeading>}></Tab>
       )
     });
     return (
@@ -48,14 +47,6 @@ class HomeScreen extends Component {
     );
   }
 }
-function mapStateToProps(state) {
-  return {
-    auth: state.auth,
-    data: state.data,
-  };
-}
-export default connect(mapStateToProps)(HomeScreen);
-
 
 const styles = StyleSheet.create({
   container: {
@@ -72,3 +63,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   }
 });
+
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+    data: state.data,
+  };
+}
+export default connect(mapStateToProps)(HomeScreen);

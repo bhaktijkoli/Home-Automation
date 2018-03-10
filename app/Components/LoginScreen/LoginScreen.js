@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux"
 import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Toast } from 'native-base';
 
-import route from './../../utils/route';
-import {makePost} from './../../utils/request';
+import Route from './../../utils/route';
+import Request from './../../utils/request';
 
-export default class LoginScreen extends Component {
+import Auth from './../../actions/authActions';
+import Data from './../../actions/dataActions';
+
+class LoginScreen extends Component {
   static navigationOptions = {
     drawerLockMode: 'locked-closed'
   }
   constructor(props) {
     super(props);
     this.state ={
-      email:'',
-      password:'',
+      email:'hello@g.com',
+      password:'hello',
     }
   }
   onSubmit() {
@@ -22,14 +26,16 @@ export default class LoginScreen extends Component {
       email: state.email,
       password: state.password,
     }
-    makePost(route('/api/user/login'), data).then(res => {
+    Request.makePost(Route('/api/user/login'), data).then(res => {
       console.log(res);
       var data = res.data;
       if(data.success) {
         if(data.homes.length>0) {
+          this.props.dispatch(Auth.setToken(data.token));
+          this.props.dispatch(Auth.setHomes(data.homes));
           this.props.navigation.navigate('HomeScreen');
         }else {
-          alert("You need to create home");
+          this.props.navigation.navigate('GetHomeScreen');
         }
       }else {
         Toast.show({text: 'Invalid email or password.', position: 'bottom', buttonText: 'Ok'})
@@ -71,3 +77,11 @@ const styles = StyleSheet.create({
     margin:10,
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+    data: state.data,
+  };
+}
+export default connect(mapStateToProps)(LoginScreen);

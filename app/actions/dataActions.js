@@ -1,4 +1,7 @@
-export function getRoomIcon(type) {
+module.exports.setData = (data) => {
+  return {type: 'SET_DATA', payload: data}
+}
+module.exports.getRoomIcon = (type) => {
   /*
   0- Hall,
   1- Bedroom,
@@ -24,7 +27,7 @@ export function getRoomIcon(type) {
     return "bed"
   }
 }
-export function newRoom(name, type) {
-  var data =   { name: name, type: type };
-  return { type: 'NEW_ROOM', payload: data };
-}
+// export function newRoom(name, type) {
+//   var data =   { name: name, type: type };
+//   return { type: 'NEW_ROOM', payload: data };
+// }

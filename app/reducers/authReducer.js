@@ -1,14 +1,17 @@
 var initialState = {
-  check: 0,
-  user: [],
+  token: '',
+  homes: [],
   loading: true,
   navigation: null,
 }
 export default function reducer(state=initialState, action) {
 
   switch (action.type) {
-    case "AUTH_USER": {
-      return {...state, user: action.payload.user}
+    case "SET_TOKEN": {
+      return {...state, token: action.payload}
+    }
+    case "SET_HOMES": {
+      return {...state, homes: action.payload}
     }
     case "LOADED": {
       return {...state, loading: false}

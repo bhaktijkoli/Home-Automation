@@ -13,6 +13,7 @@ import SettingScreen from './app/components/SettingScreen/SettingScreen.js'
 
 import LoginScreen from './app/components/LoginScreen/LoginScreen.js'
 import RegisterScreen from './app/components/LoginScreen/RegisterScreen.js'
+import GetHomeScreen from './app/components/LoginScreen/GetHomeScreen.js'
 
 
 import { Provider } from "react-redux"
@@ -40,7 +41,7 @@ const CustomDrawerContentComponent = (props) => (
       </Body>
     </Header>
     <Content>
-      <DrawerItems {...props} items={props.items.filter((item) => item.routeName !== 'LoginScreen' && item.routeName !== 'RegisterScreen')}/>
+      <DrawerItems {...props} items={props.items.filter((item) => item.routeName !== 'LoginScreen' && item.routeName !== 'RegisterScreen' && item.routeName !== 'GetHomeScreen')}/>
     </Content>
   </Container>
 
@@ -57,6 +58,7 @@ const AppNavigator = DrawerNavigator(
     SettingScreen: { screen: SettingScreen },
     LoginScreen: { screen: LoginScreen },
     RegisterScreen: { screen: RegisterScreen },
+    GetHomeScreen: { screen: GetHomeScreen },
   },
   {
     initialRouteName: 'LoginScreen',

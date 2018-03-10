@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Container, Header, Body, Title, Content, Form, Item, Input, Label, Button, Toast} from 'native-base';
 
 import route from './../../utils/route';
-import {makePost} from './../../utils/request';
+import Request from './../../utils/request';
 
 export default class RegisterScreen extends Component {
   static navigationOptions = {
@@ -62,7 +62,7 @@ export default class RegisterScreen extends Component {
       password_confirm: state.confirm,
     }
     console.log("Register request send")
-    makePost(route('/api/user/register'), data).then(res=>{
+    Request.makePost(route('/api/user/register'), data).then(res=>{
       var data = res.data;
       if(data.success) {
         Toast.show({text: 'Registration Successfull!', position: 'bottom', buttonText: 'Ok'});

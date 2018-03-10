@@ -5,7 +5,7 @@ import { Icon, Button, Container, Header, Body, Title, Content, Left, Right, Lis
 
 import HeaderEx from './../HeaderEx/HeaderEx';
 
-import {getRoomIcon} from './../../actions/dataActions';
+import Data from './../../actions/dataActions';
 
 class RoomScreen extends Component {
   static navigationOptions = {
@@ -13,11 +13,11 @@ class RoomScreen extends Component {
   }
   render() {
     var no = 0;
-    var list = this.props.data.map((d) => {
+    var list = this.props.data.rooms.map((d) => {
       return (
         <ListItem icon key={no++}>
           <Left>
-            <Icon style={{width:28}} name={getRoomIcon(d.type)} />
+            <Icon style={{width:28}} name={Data.getRoomIcon(d.type)} />
           </Left>
           <Body>
             <Text>{d.name}</Text>
