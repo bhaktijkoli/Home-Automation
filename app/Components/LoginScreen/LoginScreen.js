@@ -20,6 +20,41 @@ class LoginScreen extends Component {
       password:'hello',
     }
   }
+  componentDidMount() {
+    Auth.getToken().then(async (token) => {
+      if(token) this.props.dispatch(Auth.setToken(token));
+      Request.useAuth(token, "");
+      Request.makePostAuth(Route("/api/home/get"),{}).then(res=>{
+        var data = res.data;
+        if(data.homes.length>0) {
+          this.props.dispatch(Auth.setToken(token));
+          this.props.dispatch(Auth.setHomes(data.homes));
+          this.getHome();
+        }else {
+          this.props.navigation.navigate('GetHomeScreen');
+        }
+      }).catch(res=>{
+        if(res.response.status == 401) {
+          this.props.dispatch(Auth.setLoading(false));
+        }
+      });
+    })
+  }
+  getHome() {
+    var token = this.props.auth.token;
+    var homes = this.props.auth.homes
+    Request.useAuth(token, homes[0].name);
+    Request.makePostAuth(Route("/api/home/full"),{}).then(res=>{
+      this.props.dispatch(Data.setData(res.data));
+      this.props.dispatch(Auth.setLoading(false));
+      Auth.saveToken(token);
+      this.props.navigation.navigate('HomeScreen');
+    }).catch(res=>{
+      if(res.response.status == 401) {
+        this.props.dispatch(Auth.setLoading(false));
+      }
+    });
+  }
   onSubmit() {
     var state = this.state;
     var data = {
@@ -27,13 +62,12 @@ class LoginScreen extends Component {
       password: state.password,
     }
     Request.makePost(Route('/api/user/login'), data).then(res => {
-      console.log(res);
       var data = res.data;
       if(data.success) {
         if(data.homes.length>0) {
           this.props.dispatch(Auth.setToken(data.token));
           this.props.dispatch(Auth.setHomes(data.homes));
-          this.props.navigation.navigate('HomeScreen');
+          this.getHome();
         }else {
           this.props.navigation.navigate('GetHomeScreen');
         }
@@ -44,6 +78,14 @@ class LoginScreen extends Component {
   }
   render() {
     var state = this.state;
+    if(this.props.auth.loading) {
+      return(
+        <Container style={styles.container}>
+          <Text>Please wait...
+          </Text>
+        </Container>
+      )
+    }
     return (
       <Container style={styles.container}>
         <Content style={{flex:2}}>

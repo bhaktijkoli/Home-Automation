@@ -13,8 +13,8 @@ export default function reducer(state=initialState, action) {
     case "SET_HOMES": {
       return {...state, homes: action.payload}
     }
-    case "LOADED": {
-      return {...state, loading: false}
+    case "SET_LOADING": {
+      return {...state, loading: action.payload}
     }
     case "SET_NAVIGATION": {
       return {...state, navigation: action.payload}

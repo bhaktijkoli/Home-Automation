@@ -2,7 +2,6 @@ import axios from 'axios';
 var token = null;
 var home = null;
 module.exports.useAuth = (newtoken, newhome) => {
-  console.log("New Token", newtoken);
   token=newtoken;
   home=newhome;
 }
