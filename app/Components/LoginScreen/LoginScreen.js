@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Toast } from 'native-base';
+import { Spinner } from 'native-base';
 
 import Route from './../../utils/route';
 import Request from './../../utils/request';
@@ -16,6 +17,7 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state ={
+      login_process: false,
       email:'hello@g.com',
       password:'hello',
     }
@@ -57,6 +59,7 @@ class LoginScreen extends Component {
   }
   onSubmit() {
     var state = this.state;
+    this.setState({login_process:true});
     var data = {
       email: state.email,
       password: state.password,
@@ -75,6 +78,7 @@ class LoginScreen extends Component {
         Toast.show({text: 'Invalid email or password.', position: 'bottom', buttonText: 'Ok'})
       }
     }).catch(res=>console.log(res))
+    this.setState({login_process:false});
   }
   render() {
     var state = this.state;
@@ -100,13 +104,22 @@ class LoginScreen extends Component {
               <Label>Password</Label>
               <Input keyboardType="visible-password" value={state.password} onChangeText={value=>this.setState({'password':value})}/>
             </Item>
-            <Button primary block style={styles.button} onPress={this.onSubmit.bind(this)}><Text> Login </Text></Button>
+            <Button primary block style={styles.button} onPress={this.onSubmit.bind(this)}>
+              {this.getLoginText()}
+            </Button>
             <Button transparent block style={styles.button}><Text>Forgot password ?</Text></Button>
             <Button transparent block  style={styles.button} onPress={e => this.props.navigation.navigate('RegisterScreen')}><Text>No account yet? Create one</Text></Button>
           </Form>
         </Content>
       </Container>
     )
+  }
+  getLoginText() {
+    if(this.state.login_process) {
+      return <Spinner color="white"/>
+    }else {
+      return <Text> Login </Text>
+    }
   }
 }
 

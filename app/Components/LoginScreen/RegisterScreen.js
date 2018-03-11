@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Container, Header, Body, Title, Content, Form, Item, Input, Label, Button, Toast} from 'native-base';
+import { Spinner } from 'native-base';
 
 import route from './../../utils/route';
 import Request from './../../utils/request';
+
 
 export default class RegisterScreen extends Component {
   static navigationOptions = {
@@ -16,6 +18,7 @@ export default class RegisterScreen extends Component {
       email:'',
       password:'',
       confirm:'',
+      process: false,
     }
   }
   render() {
@@ -45,7 +48,7 @@ export default class RegisterScreen extends Component {
               <Label>Confirm password</Label>
               <Input keyboardType="visible-password" value={state.confirm} onChangeText={value=>this.setState({'confirm':value})}/>
             </Item>
-            <Button primary block style={styles.button} onPress={this.onSubmit.bind(this)}><Text> Register </Text></Button>
+            <Button primary block style={styles.button} onPress={this.onSubmit.bind(this)}>{this.getRegisterText()}</Button>
             <Button transparent block style={styles.button} onPress={e => this.props.navigation.navigate('LoginScreen')}><Text>Already have a account?</Text></Button>
           </Form>
         </Content>
@@ -53,6 +56,7 @@ export default class RegisterScreen extends Component {
     )
   }
   onSubmit() {
+    this.setState({process:true});
     var navigation = this.props.navigation;
     var state = this.state;
     var data = {
@@ -73,6 +77,14 @@ export default class RegisterScreen extends Component {
     }).catch(res=>{
       alert("An error occured while connecting to the server.")
     });
+    this.setState({process:false});
+  }
+  getRegisterText() {
+    if(this.state.process) {
+      return <Spinner color="white"/>
+    }else {
+      return <Text> Register </Text>
+    }
   }
 }
 
