@@ -23,12 +23,12 @@ class ListControllerScreen extends Component {
   handleClick(data) {
     ActionSheet.show(
       {
-        options: [{ text: "Delete", icon: "trash", iconColor: "#fa213b" }],
+        options: [{ text: "Status", icon: "ios-information-circle", iconColor: "#2c8ef4" }, { text: "Edit", icon: "ios-build", iconColor: "#ea943b" }, { text: "Delete", icon: "trash", iconColor: "#fa213b" }],
         title: data.name + " options",
       },
       buttonIndex => {
-        if(buttonIndex==0) {
-          Request.makePostAuth(Route('/api/room/remove'), {id:data._id}).then((err)=>{
+        if(buttonIndex==2) {
+          Request.makePostAuth(Route('/api/controller/remove'), {cin:data.cin}).then((err)=>{
             console.log(err);
           }).catch((err)=>console.log(err))
         }
@@ -41,9 +41,6 @@ class ListControllerScreen extends Component {
         <ListItem icon key={index}
           button={true}
           onPress={() => { this.handleClick(d) }}>
-          <Left>
-            <Icon style={{width:28}} name={Data.getRoomIcon(d.type)} />
-          </Left>
           <Body>
             <Text>{d.name}</Text>
           </Body>
