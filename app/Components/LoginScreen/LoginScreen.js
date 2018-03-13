@@ -27,7 +27,6 @@ class LoginScreen extends Component {
       if(!token) {
         this.props.dispatch(Auth.setLoading(false));
         return;
-        
       }
       this.props.dispatch(Auth.setToken(token));
       Request.useAuth(token, "");
@@ -41,9 +40,7 @@ class LoginScreen extends Component {
           this.props.navigation.navigate('GetHomeScreen');
         }
       }).catch(res=>{
-        if(res.response.status == 401) {
-          this.props.dispatch(Auth.setLoading(false));
-        }
+        this.props.dispatch(Auth.setLoading(false));
       });
     })
   }

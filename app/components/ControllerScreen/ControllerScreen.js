@@ -6,8 +6,8 @@ import { Icon } from 'native-base';
 
 import {setNavigation} from './../../actions/authActions';
 
-import ListRoomScreen from './../RoomScreen/ListRoomScreen'
-import NewRoomScreen from './../RoomScreen/NewRoomScreen'
+import ListControllerScreen from './ListControllerScreen'
+import NewControllerScreen from './NewControllerScreen'
 
 class ControllerScreen extends Component {
   static navigationOptions = {
@@ -28,8 +28,8 @@ class ControllerScreen extends Component {
 }
 
 const App = StackNavigator({
-  ListRoomScreen: { screen: ListRoomScreen },
-  NewRoomScreen: { screen: NewRoomScreen },
+  ListControllerScreen: { screen: ListControllerScreen },
+  NewControllerScreen: { screen: NewControllerScreen },
 });
 
 function mapStateToProps(state) {
