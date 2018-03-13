@@ -24,7 +24,12 @@ class LoginScreen extends Component {
   }
   componentDidMount() {
     Auth.getToken().then(async (token) => {
-      if(token) this.props.dispatch(Auth.setToken(token));
+      if(!token) {
+        this.props.dispatch(Auth.setLoading(false));
+        return;
+        
+      }
+      this.props.dispatch(Auth.setToken(token));
       Request.useAuth(token, "");
       Request.makePostAuth(Route("/api/home/get"),{}).then(res=>{
         var data = res.data;
